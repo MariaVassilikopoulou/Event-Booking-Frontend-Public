@@ -1,0 +1,75 @@
+.page-wrapper {
+  // 1. Centers the content block (container) horizontally
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3rem 1rem; // Add side padding for mobile safety
+}
+
+.container {
+  // 2. Defines the maximum readable width for the content
+  max-width: 1200px; 
+  width: 100%;
+  
+  h1 {
+      text-align: center; 
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+  }
+  p {
+      text-align: center; 
+      margin-bottom: 2rem;
+      color: #555;
+  }
+}
+
+.eventsList {
+  // 3. Applies the responsive grid layout to the list of cards
+  width: 100%; 
+  display: grid;
+  gap: 20px;
+  /* Creates a grid where columns are at least 300px wide */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+}
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.2s ease-in-out;
+  
+    &:hover {
+      transform: translateY(-2px);
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .price {
+      font-weight: bold;
+      color: #222;
+    }
+  
+    .button {
+      display: block;
+      text-align: center;
+      background: #111;
+      color: white;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.2s;
+  
+      &:hover {
+        background: #333;
+      }
+    }
+  }
+  
