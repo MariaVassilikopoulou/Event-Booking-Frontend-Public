@@ -1,27 +1,41 @@
 import { Event } from "@/types/globalTypes";
 import { useState } from "react";
 import styles from "../styles/BookingForm.module.scss";
+import { createBooking } from "@/services/bookingService";
+import { useRouter } from "next/navigation";
+
 interface Props{
     event:Event;
+    onBookingSuccess?: () => void;
 }
 
-export default function BookingForm({event}:Props){
+export default function BookingForm({event,  onBookingSuccess }:Props){
    const [name, setName]= useState("");
    const [email, setEmail]= useState("");
    const [seats, setSeats]= useState(1);
    const [loading, setLoading]= useState(false);
    const [message, setMessage]= useState("");
    const total= (event.price * seats).toFixed(2);
+  const router= useRouter();
 
    const handleSubmit= async (e:React.FormEvent)=>{
     e.preventDefault();
     setLoading(true);
     setMessage("");
+    router.push(`/booking-success?event=${event.id}`);
 
 
     try{
-        console.log("Booking;",{name, email,seats, eventId: event.id});
+      const bookingDto={
+        userName:name,
+        userEmail:email,
+        seats,
+        eventId: event.id,
+      };
+      const result = await createBooking(bookingDto);
+        console.log("Booking result;",result);
         setMessage("booking submitted succesfully");
+        onBookingSuccess?.();
     }catch(error){
         console.error("Booking failed", error);
         setMessage("Booking failed, Please try again");
