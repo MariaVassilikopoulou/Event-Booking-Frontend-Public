@@ -12,11 +12,24 @@ export default function EventDetailsPage({id}:{id:string}){
    
     const [event, setEvent]= useState<Event| null>(null);
 
+    
 
-    useEffect(()=>{
-        if (!id) return;
-        getEventsById(id).then(setEvent).catch(console.error);
-    },[id]);
+     // Function to refetch event data from backend
+  const fetchEvent = async () => {
+    try {
+      const data = await getEventsById(id);
+      setEvent(data);
+    } catch (error) {
+      console.error("Failed to fetch event:", error);
+    }
+  };
+
+  // Fetch event on page load
+  useEffect(() => {
+    if (!id) return;
+    fetchEvent();
+  }, [id]);
+
         
 
     if(!event) return<p>Loading....</p>;
@@ -27,7 +40,7 @@ export default function EventDetailsPage({id}:{id:string}){
             <p><strong>Date:</strong>{new Date(event.date).toLocaleDateString()}</p>
             <p><strong>Location:</strong>{event.location}</p>
             <p><strong>Price:</strong>{event.price}SEK</p>
-            <BookingForm event={event}/>
+            <BookingForm event={event}  onBookingSuccess={fetchEvent}/>
         </div>
     )
 
