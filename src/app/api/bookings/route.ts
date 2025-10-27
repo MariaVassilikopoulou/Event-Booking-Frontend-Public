@@ -6,9 +6,12 @@ export async function POST (request: Request){
     const body = await request.json();
 
     try{
+      const token = request.headers.get("authorization");
         const res= await fetch(backendUrl,
             { method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json",
+                  Authorization: token || "",
+                 },
                 body: JSON.stringify(body),
               });
               if (!res.ok) {

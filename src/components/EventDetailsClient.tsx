@@ -2,9 +2,10 @@
 
 import { Event } from "@/types/globalTypes";
 import { useState, useEffect } from "react";
-import styles from "../styles/EventCard.module.scss"
+import styles from "../styles/EventDetails.module.scss"
 import BookingForm from "@/components/BookingForm";
 import { getEventsById } from "@/services/eventService";
+import { Calendar, MapPin, Users } from "lucide-react";
 
 
 
@@ -32,16 +33,43 @@ export default function EventDetailsPage({id}:{id:string}){
 
         
 
-    if(!event) return<p>Loading....</p>;
+  if (!event) return <p className={styles.loading}>Loading event details...</p>;
 
-    return(
-        <div className={styles.details}>
-            <h1>{event.name}</h1>
-            <p><strong>Date:</strong>{new Date(event.date).toLocaleDateString()}</p>
-            <p><strong>Location:</strong>{event.location}</p>
-            <p><strong>Price:</strong>{event.price}SEK</p>
-            <BookingForm event={event}  onBookingSuccess={fetchEvent}/>
+  return (
+    <div className={styles.detailsPage}>
+      {/* LEFT SIDE: EVENT INFO */}
+      <div className={styles.eventInfo}>
+        <h1>{event.name}</h1>
+        <p className={styles.subtitle}>
+          Watch promising startups pitch their ideas to investors and network with entrepreneurs.
+        </p>
+
+        <div className={styles.infoRow}>
+          <Calendar size={18} />
+          <span>{new Date(event.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
         </div>
-    )
 
+        <div className={styles.infoRow}>
+          <MapPin size={18} />
+          <span>{event.location}</span>
+        </div>
+
+        <div className={styles.infoRow}>
+          <Users size={18} />
+          <span>{event.availableSeats} / {event.totalSeats} seats available</span>
+        </div>
+
+        <p className={styles.price}>
+          ${event.price}
+          <span> per seat</span>
+        </p>
+      </div>
+
+      {/* RIGHT SIDE: BOOKING FORM */}
+      <div className={styles.bookingFormWrapper}>
+        <BookingForm event={event} onBookingSuccess={fetchEvent} />
+      </div>
+    </div>
+  );
 }
+   
