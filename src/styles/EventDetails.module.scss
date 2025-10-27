@@ -1,0 +1,94 @@
+.detailsPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 2rem 4rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  
+    @media (max-width: 900px) {
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+  }
+  
+  .eventInfo {
+    flex: 1;
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0b132b;
+    }
+  
+    .subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+  
+    .infoRow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #333;
+      margin-bottom: 0.8rem;
+  
+      svg {
+        color: #0b132b;
+      }
+    }
+  
+    .price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #0b132b;
+      margin-top: 1.5rem;
+  
+      span {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #666;
+        margin-left: 0.4rem;
+      }
+    }
+  }
+  
+  .bookingFormWrapper {
+    flex: 1;
+    padding-left: 3rem; // keeps spacing from left section
+    display: flex;
+    justify-content: flex-end;
+  
+    /* no background, no border, no shadow */
+    background: none;
+    border: none;
+    box-shadow: none;
+  
+    form {
+      width: 100%;
+      max-width: 500px;
+    }
+  
+    @media (max-width: 900px) {
+      width: 100%;
+      padding-left: 0;
+      justify-content: center;
+  
+      form {
+        max-width: 100%;
+      }
+    }
+  }
+  
+  
+  .loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    padding: 2rem;
+  }
+  

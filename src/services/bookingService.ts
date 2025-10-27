@@ -1,9 +1,12 @@
 import { CreateBookingDto } from "@/types/globalTypes";
 
-export const createBooking= async (booking: CreateBookingDto)=>{
+export const createBooking= async (booking: CreateBookingDto)=>{ 
+    const token= localStorage.getItem("token");
     const res= await fetch("/api/bookings",{
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json",
+            Authorization: token?.startsWith("Bearer ") ? token : `Bearer ${token}`,
+        },
         body:JSON.stringify(booking),
     });
 
