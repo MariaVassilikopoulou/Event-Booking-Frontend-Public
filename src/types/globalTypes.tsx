@@ -14,3 +14,13 @@ export interface CreateBookingDto{
     eventId: string;
     seats: number;
 }
+
+export interface AuthState {
+    isLoggedIn: boolean;
+    userName: string | null;
+    userEmail: string | null;
+    token: string | null;
+    login: (token: string, userName: string, email: string) => void;
+    logout: () => void;
+    loadFromStorage: () => void;
+  }

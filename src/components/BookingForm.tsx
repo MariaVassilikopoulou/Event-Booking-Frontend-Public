@@ -1,5 +1,5 @@
 import { Event } from "@/types/globalTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/BookingForm.module.scss";
 import { createBooking } from "@/services/bookingService";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,15 @@ export default function BookingForm({event,  onBookingSuccess }:Props){
    const total= (event.price * seats).toFixed(2);
   const router= useRouter();
 
+
+  useEffect(()=>{
+    const storedName= localStorage.getItem("userName");
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedName) setName(storedName);
+    if(storedEmail) setEmail(storedEmail);
+    
+  }, []);
+
    const handleSubmit= async (e:React.FormEvent)=>{
     e.preventDefault();
     setLoading(true);
@@ -31,10 +40,12 @@ export default function BookingForm({event,  onBookingSuccess }:Props){
         userEmail:email,
         seats,
         eventId: event.id,
+        eventName: event.name
       };
       const result = await createBooking(bookingDto);
         console.log("Booking result;",result);
         setMessage("booking submitted succesfully");
+        router.push(`/booking-success?event=${event.id}`);
         onBookingSuccess?.();
     }catch(error){
         console.error("Booking failed", error);
@@ -64,7 +75,7 @@ export default function BookingForm({event,  onBookingSuccess }:Props){
         onChange={e => setSeats(Number(e.target.value))}
       />
 
-      <p className={styles.total}>Total: ${total}</p>
+      <p className={styles.total}>Total: {total} SEK</p>
 
       <button type="submit" disabled={loading}>
         {loading ? "Processing..." : "Confirm Booking"}

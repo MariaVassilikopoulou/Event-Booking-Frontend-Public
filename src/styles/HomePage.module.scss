@@ -1,8 +1,11 @@
 .wrapper {
-    min-height: 100vh;
-    background: #f8fafc; /* same light background as AuthPage */
+  min-height: calc(100vh - 94px);
+    //background: #f8fafc; 
     display: flex;
-    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8fafc;
+  overflow: hidden;
   }
   
   .main {
@@ -20,6 +23,8 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 500px;
+    width: 90%;
+   
   
     h1 {
       font-size: 2rem;
@@ -36,7 +41,7 @@
   
   .btn {
     display: inline-block;
-    background: #0a0a23;
+    background: #f97316;
     color: white;
     font-weight: 600;
     padding: 0.8rem 1.8rem;
@@ -45,7 +50,18 @@
     transition: background 0.2s ease;
   
     &:hover {
-      background: #11153b;
+      background: #ea580c;
+      //transform: translateY(-1px);
+    }
+    &:disabled {
+      background-color: #fbbf24; // lighter muted orange for disabled
+      cursor: not-allowed;
+    }
+  
+    &:focus {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
     }
   }
+  
   
