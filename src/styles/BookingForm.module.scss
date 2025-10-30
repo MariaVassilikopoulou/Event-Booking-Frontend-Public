@@ -56,7 +56,7 @@
     }
   
     button {
-      background-color: #111827;
+      background-color:#f97316;
       color: white;
       border: none;
       border-radius: 0.5rem;
@@ -68,12 +68,16 @@
       transition: background 0.3s ease;
   
       &:hover {
-        background-color: #2b3557;
+        background-color:#ea580c;
       }
   
       &:disabled {
-        background-color: #a1a1aa;
+        background-color:#fbbf24;
         cursor: not-allowed;
+      }
+      &:focus {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
       }
     }
   

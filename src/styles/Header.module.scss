@@ -21,7 +21,7 @@
   }
   
   .loginButton, .logout {
-    background:black;
+    background:#111;
     color:  white;
     border: none;
     padding: 0.5rem 1rem;
@@ -29,10 +29,12 @@
     cursor: pointer;
     text-decoration: none;
     transition: 0.2s;
+   
   }
   
   .loginButton:hover, .logout:hover {
-    background: #413939;
+    background: #11153b;
+   
   }
   
 

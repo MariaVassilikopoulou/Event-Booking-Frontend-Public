@@ -15,7 +15,7 @@ export default function EventDetailsPage({id}:{id:string}){
 
     
 
-     // Function to refetch event data from backend
+
   const fetchEvent = async () => {
     try {
       const data = await getEventsById(id);
@@ -25,7 +25,7 @@ export default function EventDetailsPage({id}:{id:string}){
     }
   };
 
-  // Fetch event on page load
+  
   useEffect(() => {
     if (!id) return;
     fetchEvent();
@@ -37,7 +37,7 @@ export default function EventDetailsPage({id}:{id:string}){
 
   return (
     <div className={styles.detailsPage}>
-      {/* LEFT SIDE: EVENT INFO */}
+    
       <div className={styles.eventInfo}>
         <h1>{event.name}</h1>
         <p className={styles.subtitle}>
@@ -60,12 +60,11 @@ export default function EventDetailsPage({id}:{id:string}){
         </div>
 
         <p className={styles.price}>
-          ${event.price}
+          {event.price} SEK
           <span> per seat</span>
         </p>
       </div>
 
-      {/* RIGHT SIDE: BOOKING FORM */}
       <div className={styles.bookingFormWrapper}>
         <BookingForm event={event} onBookingSuccess={fetchEvent} />
       </div>

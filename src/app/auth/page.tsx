@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import styles from "../../styles/Auth.module.scss"
+import { useAuthStore } from "@/stores/useAuthStore";
 export default function AuthPage(){
     const [isLogin, setIsLogin]= useState(true);
     const [email, setEmail]= useState("");
@@ -9,7 +10,7 @@ export default function AuthPage(){
     const [message, setMessage]=useState("");
 
     const toggleMode= ()=> setIsLogin(!isLogin);
-
+    const login = useAuthStore((state) => state.login);
 
     const handleSubmit= async (e:React.FormEvent)=>{
         e.preventDefault();
@@ -36,9 +37,10 @@ export default function AuthPage(){
         const data= await  res.json();
 
 
-        localStorage.setItem("token", data.token);
+       /* localStorage.setItem("token", data.token);
         localStorage.setItem("userName", data.fullName);
-
+        localStorage.setItem("userEmail", data.email);*/
+        login(data.token, data.fullName, data.email);
 
         setMessage(isLogin? "Login succesfull!": "Acount created!")
         window.location.href="/";
