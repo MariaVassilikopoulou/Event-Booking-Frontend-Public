@@ -48,6 +48,7 @@ steps:
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container' 
 
+
 #Step 6
 #- task: AzureWebApp@1
 #  displayName: 'Deploy Frontend to Azure App Service'
