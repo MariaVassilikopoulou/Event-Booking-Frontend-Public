@@ -35,7 +35,8 @@ steps:
   inputs:
     key: 'next-build | "$(Agent.OS)" | package-lock.json'
     path: $(Pipeline.Workspace)/.next
-
+    failOnCacheMiss: false
+    
 #Step 4
 - script: npm run build
   displayName: 'Build Next.js project'
