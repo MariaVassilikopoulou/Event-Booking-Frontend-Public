@@ -1,0 +1,39 @@
+trigger:
+- main
+- SettingUpFrontendPipeline 
+pool:
+  name: Default   # Replace 'Default' with the name of your self-hosted agent pool
+  demands:
+    - agent.name -equals DESKTOP-HJ6NA99
+
+variables:
+  nodeVersion: '22.x'
+  buildDir: '$(System.DefaultWorkingDirectory)/.next'
+  artifactName: 'drop'
+
+steps:
+#Step 1
+- checkout: self
+  displayName: 'Checkout repository'
+
+#Step 2
+- task: NodeTool@0
+  displayName: 'Use Node.js $(nodeVersion)'
+  inputs:
+    version: '$(nodeVersion)'
+
+#Step 3
+- script: npm ci
+  display: 'Install dependencies with npm ci'
+
+#Step 4
+- script: npm run build
+  displayName: 'Build Next.js project'
+
+#Step 5
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish frontend build artifacts'
+  inputs:
+    PathtoPublish: '$(buildDir)'
+    ArtifactName: '$(artifactName)'
+    publishLocation: 'Container' 
