@@ -22,9 +22,19 @@ steps:
   inputs:
     version: '$(nodeVersion)'
 
+- task: Cache@2
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    path: $(Pipeline.Workspace)/.npm
+
 #Step 3
-- script: npm ci
-  displayName: 'Install dependencies with npm ci'
+- script: npm ci --cache $(Pipeline.Workspace)/.npm --prefer-offline
+  displayName: 'Install dependencies with npm ci (cached)'
+
+- task: Cache@2
+  inputs:
+    key: 'next-build | "$(Agent.OS)" | package-lock.json'
+    path: $(Pipeline.Workspace)/.next
 
 #Step 4
 - script: npm run build
@@ -37,3 +47,11 @@ steps:
     PathtoPublish: '$(buildDir)'
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container' 
+
+#Step 6
+#- task: AzureWebApp@1
+#  displayName: 'Deploy Frontend to Azure App Service'
+#  inputs:
+#    azureSubscription: ''
+#    appName: ''
+#    package: '$(Build.ArtifactStagingDirectory)/drop'
