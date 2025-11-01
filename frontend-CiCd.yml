@@ -31,15 +31,18 @@ steps:
 - script: npm ci --cache $(Pipeline.Workspace)/.npm --prefer-offline
   displayName: 'Install dependencies with npm ci (cached)'
 
-- task: Cache@2
-  inputs:
-    key: 'next-build | "$(Agent.OS)" | package-lock.json'
-    path: $(Pipeline.Workspace)/.next
+
 
 #Step 4
 - script: npm run build
   displayName: 'Build Next.js project'
 
+- task: Cache@2
+  inputs:
+    key: 'next-build | "$(Agent.OS)" | package-lock.json'
+    path: $(Pipeline.Workspace)/.next
+    failOnCacheMiss: true
+    
 #Step 5
 - task: PublishBuildArtifacts@1
   displayName: 'Publish frontend build artifacts'
