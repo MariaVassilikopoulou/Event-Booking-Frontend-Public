@@ -24,7 +24,7 @@ steps:
 
 #Step 3
 - script: npm ci
-  display: 'Install dependencies with npm ci'
+  displayName: 'Install dependencies with npm ci'
 
 #Step 4
 - script: npm run build
