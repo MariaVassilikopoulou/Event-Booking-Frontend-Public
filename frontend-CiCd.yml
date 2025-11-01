@@ -1,8 +1,9 @@
 trigger:
 - main
 - SettingUpFrontendPipeline 
+
 pool:
-  name: Default   # Replace 'Default' with the name of your self-hosted agent pool
+  name: Default 
   demands:
     - agent.name -equals DESKTOP-HJ6NA99
 
@@ -12,44 +13,63 @@ variables:
   artifactName: 'drop'
 
 steps:
-#Step 1
+# Step 1: Checkout
 - checkout: self
   displayName: 'Checkout repository'
 
-#Step 2
+# Step 2: Node Setup and Dependency Cache Restore
 - task: UseNode@1
   displayName: 'Use Node.js $(nodeVersion)'
   inputs:
     version: '$(nodeVersion)'
 
 - task: Cache@2
+  displayName: 'Cache/Restore node_modules'
   inputs:
     key: 'npm | "$(Agent.OS)" | package-lock.json'
-    path: $(Pipeline.Workspace)/.npm
+    path: $(System.DefaultWorkingDirectory)/node_modules
+    cacheHitVar: 'NPM_CACHE_HIT'
 
-#Step 3
-- script: npm ci --cache $(Pipeline.Workspace)/.npm --prefer-offline
-  displayName: 'Install dependencies with npm ci (cached)'
+# Step 3a: Install dependencies (only if cache missed)
+- script: npm ci 
+  displayName: 'Install dependencies with npm ci'
+  condition: ne(variables.NPM_CACHE_HIT, 'true')
 
+- task: Cache@2
+  displayName: 'Save node_modules Cache'
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    path: $(System.DefaultWorkingDirectory)/node_modules
+    condition: and(succeeded(), ne(variables.NPM_CACHE_HIT, 'true')) # Save only if cache restore missed
 
+# Step 3b: Next.js Build Cache Restore
+- task: Cache@2
+  displayName: 'Restore Next.js Build Cache'
+  inputs:
+    key: 'next-cache | "$(Agent.OS)" | package-lock.json'
+    path: $(System.DefaultWorkingDirectory)/.next/cache
+    cacheHitVar: 'NEXT_CACHE_RESTORED'
 
-#Step 4
+# Step 4: Build
 - script: npm run build
   displayName: 'Build Next.js project'
 
+# Step 4c: Next.js Build Cache Save
 - task: Cache@2
+  displayName: 'Save Next.js Build Cache'
   inputs:
-    key: 'next-build | "$(Agent.OS)" | package-lock.json'
-    path: $(Pipeline.Workspace)/.next
-    failOnCacheMiss: true
-    
-#Step 5
+    key: 'next-cache | "$(Agent.OS)" | package-lock.json'
+    path: $(System.DefaultWorkingDirectory)/.next/cache
+    condition: and(succeeded(), ne(variables.NEXT_CACHE_RESTORED, 'true'))
+
+# Step 5: Publish Artifacts
 - task: PublishBuildArtifacts@1
   displayName: 'Publish frontend build artifacts'
   inputs:
-    PathtoPublish: '$(buildDir)'
+    PathtoPublish: '$(buildDir)' # $(buildDir) resolves to $(System.DefaultWorkingDirectory)/.next
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container' 
+
 
 
 #Step 6
