@@ -17,7 +17,7 @@ steps:
   displayName: 'Checkout repository'
 
 #Step 2
-- task: NodeTool@0
+- task: UseNode@1
   displayName: 'Use Node.js $(nodeVersion)'
   inputs:
     version: '$(nodeVersion)'
