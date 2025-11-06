@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 
 
-const baseUrl= "http://localhost:5038/api/events";
+const baseUrl= process.env.NEXT_PUBLIC_API_EVENTS;
 
 export async function GET(request: Request,  context:  { params:Promise<{ id: string }>}){
     const {id}= await context.params;

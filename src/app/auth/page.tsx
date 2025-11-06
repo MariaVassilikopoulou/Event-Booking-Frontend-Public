@@ -8,6 +8,7 @@ export default function AuthPage(){
     const [password, setPassword]= useState("");
     const [fullName, setFullName]= useState("");
     const [message, setMessage]=useState("");
+    const [loading, setLoading]= useState(false);
 
     const toggleMode= ()=> setIsLogin(!isLogin);
     const login = useAuthStore((state) => state.login);
@@ -15,14 +16,23 @@ export default function AuthPage(){
     const handleSubmit= async (e:React.FormEvent)=>{
         e.preventDefault();
         setMessage("");
+        setLoading(true);
      
     
-    const url= isLogin ? "http://localhost:5038/login"
-    : "http://localhost:5038/register";
+    const url= isLogin ? process.env.NEXT_PUBLIC_API_LOGIN
+    : process.env.NEXT_PUBLIC_API_REGISTER 
 
     const body= isLogin? {email,password}:{email,password,fullName};
 
     try{
+
+      if (!url) {
+        console.error(" Missing NEXT_PUBLIC_API_LOGIN or NEXT_PUBLIC_API_REGISTER in .env file");
+        setMessage("Server configuration issue. Please try again later.");
+        setLoading(false);
+        return;
+      }
+
         const res = await fetch(url, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -31,9 +41,16 @@ export default function AuthPage(){
 
         if(!res.ok){
             const err= await  res.text();
+        if(res.status ===503 || err.includes("cold start")){
+          setMessage(err || "Our server just woke up.Please try again in a few seconds 😎✨")
+        } else {
             setMessage(err || "Something went wrong!");
             return;
         }
+        setLoading(false);
+        return
+      }
+
         const data= await  res.json();
 
 
@@ -45,13 +62,17 @@ export default function AuthPage(){
         setMessage(isLogin? "Login succesfull!": "Acount created!")
         window.location.href="/";
     }catch(error){
-        setMessage("Error connecting to server");
-    }
-}
+        setMessage("⚠️ Couldn't reach server. Try again in a few seconds!");
+    
+    }finally{
+      setLoading(false);
+    }}
+
+
 return(
     <div className={styles.wrapper}>
       <div className={styles.card}>
-        <h1>GoEvent</h1>
+        <h1>Flowvent</h1>
         <p>Sign in or create an account to book events</p>
 
         <div className={styles.tabContainer}>
@@ -68,6 +89,15 @@ return(
             Sign Up
           </button>
         </div>
+
+        <div className={styles.formWrapper} style={{ position: "relative" }}>
+    {loading && (
+        <div className={styles.loadingOverlay}>
+            <div className={styles.spinner}></div>
+        </div>
+    )}
+
+
 
         <form onSubmit={handleSubmit}>
           {!isLogin && (
@@ -112,6 +142,7 @@ return(
 
         {message && <p className={styles.message}>{message}</p>}
       </div>
+    </div>
     </div>
   );
 }

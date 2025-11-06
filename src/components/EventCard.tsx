@@ -1,7 +1,7 @@
 import { Event } from "@/types/globalTypes";
 import  styles from "../styles/EventCard.module.scss"
 import Link from "next/link";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
 interface Props {
     event:Event;

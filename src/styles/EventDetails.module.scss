@@ -5,9 +5,11 @@
     gap: 2.5rem;
     padding: 2rem 4rem;
     width: 100%;
-    max-width: 1400px;
+   // max-width: 1400px;
     margin: 0 auto;
-  
+    background:#f7f7f7;
+    min-height: calc(100vh - 94px);
+
     @media (max-width: 900px) {
       flex-direction: column;
       padding: 1.5rem;
@@ -59,11 +61,11 @@
   
   .bookingFormWrapper {
     flex: 1;
-    padding-left: 3rem; // keeps spacing from left section
+    padding-left: 3rem; 
     display: flex;
     justify-content: flex-end;
   
-    /* no background, no border, no shadow */
+   
     background: none;
     border: none;
     box-shadow: none;

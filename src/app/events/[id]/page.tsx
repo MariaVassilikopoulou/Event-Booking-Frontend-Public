@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getEventsById } from "@/services/eventService";
-import EventDetailsClient from "../../../components/EventDetailsClient"; // Import the client component
+import EventDetailsClient from "../../../components/EventDetailsClient"; 
 import { Event } from "@/types/globalTypes";
 
 

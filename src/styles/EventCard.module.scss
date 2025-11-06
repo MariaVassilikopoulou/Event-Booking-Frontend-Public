@@ -1,13 +1,12 @@
 .page-wrapper {
-  // 1. Centers the content block (container) horizontally
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 3rem 1rem; // Add side padding for mobile safety
+  padding: 3rem 1rem; 
+  background:#f7f7f7;
 }
 
 .container {
-  // 2. Defines the maximum readable width for the content
   max-width: 1200px; 
   width: 100%;
   
@@ -24,11 +23,9 @@
 }
 
 .eventsList {
-  // 3. Applies the responsive grid layout to the list of cards
   width: 100%; 
   display: grid;
   gap: 20px;
-  /* Creates a grid where columns are at least 300px wide */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
 }
 
@@ -68,12 +65,12 @@
       transition: background 0.3s ease, transform 0.2s ease;
   
       &:hover {
-        background-color: #ea580c; // slightly darker orange for hover
+        background-color: #ea580c; 
         transform: translateY(-1px);
       }
     
       &:disabled {
-        background-color: #fbbf24; // lighter muted orange for disabled
+        background-color: #fbbf24; 
         cursor: not-allowed;
       }
     
@@ -84,10 +81,10 @@
     }
 
     .button.disabled {
-      background-color: #fbbf24; // same as &:disabled
+      background-color: #fbbf24; 
       cursor: not-allowed;
-      opacity: 0.6; // makes it look muted
-      pointer-events: none; // ensures it cannot be clicked
+      opacity: 0.6; 
+      pointer-events: none; 
     }
     
   }
