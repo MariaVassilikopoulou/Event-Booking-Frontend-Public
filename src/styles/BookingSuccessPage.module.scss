@@ -1,0 +1,70 @@
+.pageBackground {
+    //min-height: 100vh;
+    min-height: calc(100vh - 94px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7; // your chosen modern light gray
+    padding: 2rem; // optional spacing around the wrapper
+  }
+  
+.wrapper {
+    text-align: center;
+    margin: 50px auto;
+    padding: 2.5rem;
+    //max-width: 800px;
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb; // softer border
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); // subtle shadow
+    transition: all 0.3s ease-in-out;
+    
+  
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0b132b;
+      margin-bottom: 0.5rem;
+    }
+  
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: #475569;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+  }
+  
+  .warning {
+    color: #d97706; 
+    font-weight: 600;
+    margin-bottom: 20px;
+    background-color: #fffbeb; 
+    padding: 1rem 1rem;
+    border-radius: 6px;
+   
+  }
+  
+  .backLink {
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    background-color: #f97316;
+    color: #fff;
+    transition: background 0.2s ease, transform 0.2s ease;
+    margin-top: 2rem; 
+    &:hover {
+      background-color: #ea580c;
+      transform: translateY(-2px);
+    }
+  }
+  

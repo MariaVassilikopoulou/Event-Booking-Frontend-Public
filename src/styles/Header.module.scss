@@ -1,40 +1,47 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background:  white;
-    color:#111;
-    padding: 1rem 2rem;
-  }
-  
-  .left a {
-    font-size: 1.5rem;
-    color: #111;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .loginButton, .logout {
-    background:#111;
-    color:  white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.2s;
-   
-  }
-  
-  .loginButton:hover, .logout:hover {
-    background: #11153b;
-   
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff; 
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
+  border-bottom: 1px solid #e5e7eb; 
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
 
+.left a {
+  font-size: 1.5rem;
+  color: #0b132b; 
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loginButton, .logout {
+  background-color: #f97316; 
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.loginButton:hover, .logout:hover {
+  background-color: #ea580c; // hover accent
+  transform: translateY(-1px); // subtle lift effect
+}
+
+.loginButton:focus, .logout:focus {
+  //outline: 2px solid #f97316;
+  outline-offset: 2px;
+}

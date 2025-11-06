@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-const  backendUrl= "http://localhost:5038/api/booking";
-
+const  backendUrl= process.env.NEXT_PUBLIC_API_BOOKINGS ?? "";
 export async function POST (request: Request){
     const body = await request.json();
 

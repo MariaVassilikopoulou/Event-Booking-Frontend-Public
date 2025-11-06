@@ -24,7 +24,7 @@ export default function Header(){
     return (
         <header className={styles.header}>
             <div className={styles.left}>
-                <p>EventBookingPlatform</p>
+                <p>Event Booking Platform</p>
                 <Link href="/" >Flowvent</Link>
             </div>
             <div className={styles.right}>
