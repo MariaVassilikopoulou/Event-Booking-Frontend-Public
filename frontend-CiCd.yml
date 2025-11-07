@@ -1,11 +1,14 @@
 trigger:
 - main
-- SettingUpFrontendPipeline 
+
+
+#pool:
+#  name: Default 
+#  demands:
+#    - agent.name -equals DESKTOP-HJ6NA99
 
 pool:
-  name: Default 
-  demands:
-    - agent.name -equals DESKTOP-HJ6NA99
+  vmImage: 'windows-latest'
 
 variables:
   nodeVersion: '22.x'
