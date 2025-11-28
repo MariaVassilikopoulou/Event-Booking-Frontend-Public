@@ -1,3 +1,4 @@
+import AskAIButton from "@/components/AskAiButton";
 import styles from "../styles/HomePage.module.scss";
 import Link from "next/link";
 
@@ -12,6 +13,7 @@ export default function HomePage() {
           <Link href="/events" className={styles.btn}>
             Book Now
           </Link>
+         <AskAIButton/>
         </div>
     
     </div>
