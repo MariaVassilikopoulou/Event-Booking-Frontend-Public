@@ -5,6 +5,8 @@
   align-items: center;
   background: #f7f7f7;
   overflow: hidden;
+
+ 
 }
 
 .card {
@@ -36,7 +38,10 @@
     line-height: 1.5;
   }
 }
-
+.wrapper.modal-open .card:hover {
+  transform: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
 .btn {
   display: inline-block;
   background: #f97316;

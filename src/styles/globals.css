@@ -1,10 +1,10 @@
-/* Root variables for light/dark mode */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #f97316; /* your orange for buttons/accents */
-  --secondary: #111827; /* dark for secondary buttons */
-  --accent: #2563eb; /* optional blue for highlights */
+  --primary: #f97316; 
+  --secondary: #111827; 
+  --accent: #2563eb; 
   --border: #e4e4e4;
 }
 
@@ -12,14 +12,14 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #f97316; /* keep same accent in dark */
+    --primary: #f97316; 
     --secondary: #1f2937; 
     --accent: #3b82f6;
     --border: #333;
   }
 }
 
-/* Global resets */
+
 html,
 body {
   max-width: 100vw;
@@ -44,7 +44,7 @@ a {
   text-decoration: none;
 }
 
-/* Typography scale */
+
 h1 {
   font-size: 2.5rem;
   font-weight: 700;
@@ -69,7 +69,7 @@ p, label, input, button {
   line-height: 1.5;
 }
 
-/* Focus outline for accessibility */
+
 button:focus,
 input:focus,
 a:focus {
@@ -77,12 +77,12 @@ a:focus {
   outline-offset: 2px;
 }
 
-/* Optional: smooth transitions for color changes */
+
 body, button, input, a {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* Dark mode color scheme hint */
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
