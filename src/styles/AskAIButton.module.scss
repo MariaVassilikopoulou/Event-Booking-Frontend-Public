@@ -54,7 +54,7 @@
     }
   
     p {
-      color: #555;
+      //color: #555;
       margin-bottom: 1rem;
     }
   
@@ -107,7 +107,7 @@
     padding: 0.6rem 1.2rem;
     border-radius: 6px;
     cursor: pointer;
-  
+    margin-top: 1rem;
     &:hover {
       background: #d1d5db;
     }
@@ -150,10 +150,102 @@
       color: #f97316;
       text-decoration: underline;
     }
-  
-    
   }
-  
+
+  .chatWindow {
+  margin-top: 1rem;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-right: 4px;
+}
+
+.bubbleUser {
+  align-self: flex-end;
+  max-width: 80%;
+  background:#2563eb;
+  color:#f8fafc;
+  padding: 0.8rem 1rem;
+  border-radius: 12px 12px 0 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.bubbleAI {
+  align-self: flex-start;
+  max-width: 80%;
+  background: #f3f4f6;
+  color: #111827;
+  padding: 0.8rem 1rem;
+  border-radius: 12px 12px 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 4px solid #2563eb;
+  animation: fadeIn 0.2s ease-in-out;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  strong {
+    color: #2563eb;
+  }
+
+  a {
+    color: #f97316;
+  }
+  .eventsGrid {
+    margin-top: 0.8rem;
+    width: 100%;     
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.inputRow {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+
+  input {
+    flex: 1;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+
+    &:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+  }
+
+  button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+    }
+
+    &:hover:not(:disabled) {
+      background: #1d4ed8;
+    }
+  }
+}
+
  
   @keyframes fadeIn {
     from {
@@ -166,3 +258,32 @@
     }
   }
   
+
+/* EVENT CARD */
+.eventCard {
+  background: white;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b; // slate-800
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: #475569; // slate-600
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    border-color: #2563eb;
+  }
+}

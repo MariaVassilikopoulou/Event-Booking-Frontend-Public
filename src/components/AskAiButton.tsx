@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "../styles/AskAIButton.module.scss";
 import ReactMarkdown from "react-markdown";
 
@@ -9,11 +9,39 @@ interface AskAIButtonProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  recommendedEvents?: NormalizedEvent[];
+}
+interface BackendEvent {
+  Name?: string;
+  Location?: string;
+  Date?: string;
+  Price?: number;
+  SeatsAvailable: number;
+  name?: string;
+  date?: string;
+  location?: string;
+  price?: number;
+  seatsAvailable?: number;
+}
+
+interface NormalizedEvent {
+  id: number;
+  title: string;
+  date: string;
+  location: string;
+  price: number;
+  seatsAvailable: number;
+}
+
 export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProps) {
   const [open, setOpen] = useState(false);
-  const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
-  const [answer, setAnswer] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,47 +53,80 @@ export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProp
     setModalOpen(false);
   };
 
-  const askAI = async (userQuestion: string) => {
-    const cacheKey = `aiCache:${userQuestion.toLowerCase().trim()}`;
+  const handleSend = async () => {
+    if (!input.trim()) return;
 
-    const cachedAnswer= localStorage.getItem(cacheKey);
-    
-    if (cachedAnswer){ 
-    setAnswer(cachedAnswer);
-    return;}
+    const userMessage: ChatMessage = { role: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch("/api/ai-assistant", {
+      const response = await fetch("api/ai-assistant/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userQuestion: question }),
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map((m) => ({
+            Role: m.role,
+            Content: m.content ?? "",
+          })),
+        }),
       });
+     
 
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("Backend error:", res.status, text);
-        setAnswer("Something went wrong on the server.");
-        return;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const data = await response.json();
+      
+  // Normalize backend data to frontend structure
+  const apiAnswer = data.answer;
 
-      const data = await res.json();
-      const aiAnswer = data.answer || "No response";
-      //setAnswer(data.answer || "No response.");
-      localStorage.setItem(cacheKey,aiAnswer);
-      setAnswer(aiAnswer);
-    } catch {
-      setAnswer("Something went wrong.");
+  const normalizedEvents =
+    apiAnswer?.recommendedEvents?.map((ev:  BackendEvent, idx: number) => ({
+      id: idx + 1, // generate an id if backend has none
+      title: ev.Name ?? ev.name  ?? "Untitled",
+      date: ev.Date  ?? ev.date  ?? "Unknown date",
+      location: ev.location  ?? ev.Location  ?? "Unknown location",
+      price: ev.Price  ?? ev.price  ?? 0,
+      seatsAvailable: ev.SeatsAvailable  ?? ev.seatsAvailable  ?? 0,
+    })) || [];
+
+
+      const aiMessage: ChatMessage = {
+        role: "assistant",
+         content: apiAnswer?.answerText ?? "No response",
+        recommendedEvents: normalizedEvents,
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Error sending message:",err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Sorry, something went wrong. Please try again.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !loading) {
+      handleSend();
+    }
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div className={styles.wrapper}>
-      <button className={styles.button} onClick={handleOpen}>
-        💬 Ask the AI
-      </button>
+      <button className={styles.button} onClick={handleOpen}>💬 Ask the AI</button>
 
       {open && (
         <div className={styles.overlay}>
@@ -73,24 +134,63 @@ export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProp
             <h2>Ask our AI Assistant</h2>
             <p>Get quick help about events, suggestions, or recommendations.</p>
 
-            <textarea
-              placeholder="Ask something..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
+            {/* CHAT WINDOW */}
+            <div className={styles.chatWindow}>
 
-            <div className={styles.actions}>
-              <button className={styles.close} onClick={handleClose}>
-                Close
-              </button>
+            {messages.length === 0 && (
+                <div className={styles.emptyState}>
+                  <p>👋 Hi! Ask me anything about our events!</p>
+                  <p>Try: What is the cheapest event? or Show me cooking workshops</p>
+                </div>
+              )}
 
-              <button className={styles.ask} onClick={()=>askAI(question)} disabled={loading}>
-                {loading ? "Thinking..." : "Ask"}
+              {messages.map((m, i) => (
+                <div
+                  key={i}
+                  className={m.role === "user" ? styles.bubbleUser : styles.bubbleAI}
+                >
+                  <ReactMarkdown>{m.content}</ReactMarkdown>
+
+                  {m.recommendedEvents && (
+                    <div className={styles.eventsGrid}>
+                      {m.recommendedEvents.map((ev) => (
+                        <div key={ev.id} className={styles.eventCard}>
+                          <h4>{ev.title}</h4>
+                          <p>📍 {ev.location}</p>
+                          <p>📅 {new Date(ev.date).toLocaleDateString()}</p>
+                          <p>💰 ${ev.price}</p>
+                          <p>🎟️ {ev.seatsAvailable} seats available</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+                {loading && (
+                <div className={styles.bubbleAI}>
+                  <p>Thinking...</p>
+                </div>
+              )}
+              <div ref={scrollRef}></div>
+            </div>
+
+            {/* INPUT AREA */}
+            <div className={styles.inputRow}>
+              <input
+                type="text"
+                placeholder="Send a message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                disabled={loading}
+              />
+              <button onClick={handleSend} disabled={loading || !input.trim()}>
+                {loading ? "..." : "Send"}
               </button>
             </div>
 
-            {answer && <div className={styles.answer}>
-              <ReactMarkdown>{answer}</ReactMarkdown></div>}
+            <button className={styles.close} onClick={handleClose}>Close</button>
           </div>
         </div>
       )}
