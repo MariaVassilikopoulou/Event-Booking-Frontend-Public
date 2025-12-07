@@ -3,37 +3,12 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "../styles/AskAIButton.module.scss";
 import ReactMarkdown from "react-markdown";
+import { sendAiChatMessage } from "../services/aiAssistantService";
+import { ChatMessage, BackendEvent } from "../types/globalTypes";
 
 interface AskAIButtonProps {
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-  recommendedEvents?: NormalizedEvent[];
-}
-interface BackendEvent {
-  Name?: string;
-  Location?: string;
-  Date?: string;
-  Price?: number;
-  SeatsAvailable: number;
-  name?: string;
-  date?: string;
-  location?: string;
-  price?: number;
-  seatsAvailable?: number;
-}
-
-interface NormalizedEvent {
-  id: number;
-  title: string;
-  date: string;
-  location: string;
-  price: number;
-  seatsAvailable: number;
 }
 
 export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProps) {
@@ -62,46 +37,26 @@ export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProp
     setLoading(true);
 
     try {
-      const response = await fetch("api/ai-assistant/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
-            Role: m.role,
-            Content: m.content ?? "",
-          })),
-        }),
-      });
-     
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      
-  // Normalize backend data to frontend structure
-  const apiAnswer = data.answer;
-
-  const normalizedEvents =
-    apiAnswer?.recommendedEvents?.map((ev:  BackendEvent, idx: number) => ({
-      id: idx + 1, // generate an id if backend has none
-      title: ev.Name ?? ev.name  ?? "Untitled",
-      date: ev.Date  ?? ev.date  ?? "Unknown date",
-      location: ev.location  ?? ev.Location  ?? "Unknown location",
-      price: ev.Price  ?? ev.price  ?? 0,
-      seatsAvailable: ev.SeatsAvailable  ?? ev.seatsAvailable  ?? 0,
-    })) || [];
-
-
+      const data = await sendAiChatMessage([...messages, userMessage]);
+      // Normalize backend data to frontend structure
+      const apiAnswer = data.answer;
+      const normalizedEvents =
+        apiAnswer?.recommendedEvents?.map((ev: BackendEvent, idx: number) => ({
+          id: idx + 1, // generate an id if backend has none
+          title: ev.Name ?? ev.name ?? "Untitled",
+          date: ev.Date ?? ev.date ?? "Unknown date",
+          location: ev.location ?? ev.Location ?? "Unknown location",
+          price: ev.Price ?? ev.price ?? 0,
+          seatsAvailable: ev.SeatsAvailable ?? ev.seatsAvailable ?? 0,
+        })) || [];
       const aiMessage: ChatMessage = {
         role: "assistant",
-         content: apiAnswer?.answerText ?? "No response",
+        content: apiAnswer?.answerText ?? "No response",
         recommendedEvents: normalizedEvents,
       };
-
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error("Error sending message:",err);
+      console.error("Error sending message:", err);
       setMessages((prev) => [
         ...prev,
         {

@@ -23,4 +23,32 @@ export interface AuthState {
     login: (token: string, userName: string, email: string) => void;
     logout: () => void;
     loadFromStorage: () => void;
-  }
+}
+
+export type NormalizedEvent = {
+  id: number;
+  title: string;
+  date: string;
+  location: string;
+  price: number;
+  seatsAvailable: number;
+};
+
+export type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+  recommendedEvents?: NormalizedEvent[];
+};
+
+export type BackendEvent = {
+  Name?: string;
+  Location?: string;
+  Date?: string;
+  Price?: number;
+  SeatsAvailable?: number;
+  name?: string;
+  date?: string;
+  location?: string;
+  price?: number;
+  seatsAvailable?: number;
+};

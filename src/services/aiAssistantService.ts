@@ -1,3 +1,5 @@
+import { ChatMessage, BackendEvent } from "../types/globalTypes";
+
 interface AskEventRequest {
     name: string;
     description: string;
@@ -13,13 +15,11 @@ interface AskEventRequest {
     answer: string;
   }
   
-  const BASE_URL = process.env.NEXT_PUBLIC_API_AI_ASSISTANT;
+  const BASE_URL = "/api/ai-assistant";
   
   export async function askEventAssistant(
     data: AskEventRequest
   ): Promise<AskEventResponse> {
-    if (!BASE_URL) throw new Error("Missing NEXT_PUBLIC_API_AI_ASSISTANT");
-  
     const response = await fetch(BASE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,4 +32,22 @@ interface AskEventRequest {
   
     return response.json();
   }
-  
+
+  export async function sendAiChatMessage(
+    messages: ChatMessage[]
+  ): Promise<{ answer: { answerText?: string; recommendedEvents?: BackendEvent[] } }> {
+    const response = await fetch("/api/ai-assistant/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: messages.map((m) => ({
+          Role: m.role,
+          Content: m.content ?? "",
+        })),
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  }
