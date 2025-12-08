@@ -5,11 +5,11 @@ import { Event } from "@/types/globalTypes";
 import EventDetailsClient from '@/components/EventDetailsClient';
 
 interface Params {
-    params: { id: string };
+    params: Promise<{ id: string }>;
   }
   export const dynamic = "force-dynamic";
   export default async function EventDetailsPage({ params }: Params) {
-    const { id } = params;
+    const { id } = await params;
     let event: Event | null =  null;
     
     try {
@@ -30,5 +30,5 @@ interface Params {
     }
     
     
-    return <EventDetailsClient  id={id}  />;
+    return <EventDetailsClient  id={id} initialEvent={event} />;
 }

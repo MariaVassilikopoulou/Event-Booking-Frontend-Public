@@ -9,9 +9,13 @@ import { Calendar, MapPin, Users } from "lucide-react";
 
 
 
-export default function EventDetailsPage({id, initialEvent}:{id:string, initialEvent: Event}){
+export default function EventDetailsClient({id, initialEvent}:{id:string, initialEvent: Event}){
    
   const [event, setEvent]= useState<Event>(initialEvent);
+  useEffect(() => {
+    console.log("Client received id:", id);
+    console.log("Client received initialEvent:", initialEvent);
+  }, []);
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState<string | null>(null);
   
