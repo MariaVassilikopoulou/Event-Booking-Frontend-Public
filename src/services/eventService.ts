@@ -15,8 +15,18 @@ export const getEvents= async(): Promise<Event[]>=>{
 }
 
 
-export const getEventsById= async(id: string):Promise<Event>=>{
-    const res= await fetch (`${BASE_URL}/${id}`);
-    if(!res.ok) throw new Error("Failed to fetch event");
+export const getEventsById = async (id: string): Promise<Event | null> => {
+  try {
+    const res = await fetch(`${BASE_URL}/${id}`, { cache: "no-store" });
+
+    if (!res.ok) {
+      console.error("Failed to fetch event:", res.status);
+      return null;
+    }
+
     return res.json();
-}
+  } catch (err) {
+    console.error("getEventsById error:", err);
+    return null;
+  }
+};
