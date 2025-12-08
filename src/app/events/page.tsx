@@ -1,10 +1,11 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { getEvents} from '../../services/eventService';
+
 import EventCard from '@/components/EventCard';
 import { Event } from '@/types/globalTypes';
 import styles from "../../styles/EventCard.module.scss"
+import { getEvents } from '@/services/eventService';
 
 
 export default function EventsPage() {

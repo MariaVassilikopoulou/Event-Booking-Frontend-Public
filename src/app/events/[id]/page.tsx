@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { getEventsById } from "@/services/eventService";
-import EventDetailsClient from "../../../components/EventDetailsClient"; 
+ 
 import { Event } from "@/types/globalTypes";
+import EventDetailsClient from '@/components/EventDetailsClient';
 
 interface Params {
     params: { id: string };
