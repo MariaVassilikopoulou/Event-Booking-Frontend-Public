@@ -16,7 +16,7 @@ export default function EventsPage() {
     const fetchEvents = async () => {
       try {
         const data = await getEvents();
-        setEvents(data);
+        setEvents(data??[]);
       } catch (err) {
         setError((err as Error).message);
       } finally {

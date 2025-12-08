@@ -1,11 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 
 const baseUrl= process.env.NEXT_PUBLIC_API_EVENTS;
 
-export async function GET(request: Request,  context:  { params:Promise<{ id: string }>}){
-    const {id}= await context.params;
+export async function GET( request: NextRequest,
+  { params }: { params: Promise<{ id: string }> } 
+): Promise<NextResponse<Event | { message: string }>> {
+    const {id}= await params;
     const backendUrl= `${baseUrl}/${id}`
     
 try{
