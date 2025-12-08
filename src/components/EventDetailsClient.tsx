@@ -12,27 +12,30 @@ import { Calendar, MapPin, Users } from "lucide-react";
 export default function EventDetailsPage({id}:{id:string}){
    
     const [event, setEvent]= useState<Event| null>(null);
-
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     
 
 
-  const fetchEvent = async () => {
-    try {
-      const data = await getEventsById(id);
-      setEvent(data);
-    } catch (error) {
-      console.error("Failed to fetch event:", error);
-    }
-  };
-
+    useEffect(() => {
+      const fetchEvent = async () => {
+        try {
+          const data = await getEventsById(id);
+          setEvent(data);
+        } catch (err) {
+          console.error(err);
+          setError("Failed to load event.");
+        } finally {
+          setLoading(false);
+        }
+      };
   
-  useEffect(() => {
-    if (!id) return;
-    fetchEvent();
-  }, [id]);
+      if (id) fetchEvent();
+    }, [id]);
 
         
-
+    if (loading) return <p className={styles.loading}>Loading event details...</p>;
+    if (error || !event) return <p>{error || "Event not found"}</p>;
   if (!event) return <p className={styles.loading}>Loading event details...</p>;
 
   return (
@@ -66,7 +69,7 @@ export default function EventDetailsPage({id}:{id:string}){
       </div>
 
       <div className={styles.bookingFormWrapper}>
-        <BookingForm event={event} onBookingSuccess={fetchEvent} />
+        <BookingForm event={event} onBookingSuccess={() => {}} />
       </div>
     </div>
   );
