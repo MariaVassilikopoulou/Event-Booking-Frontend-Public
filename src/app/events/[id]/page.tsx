@@ -15,6 +15,8 @@ interface Params {
     try {
        
         event = await getEventsById(id);
+        
+       console.log("Fetched event:", event);
       
     } catch (error) {
         console.error(`Failed to fetch event ${id}:`, error);

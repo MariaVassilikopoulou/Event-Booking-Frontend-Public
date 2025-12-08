@@ -1,7 +1,7 @@
 import { Event } from "@/types/globalTypes";
 
 
-const BASE_URL =process.env.NEXT_PUBLIC_API_EVENTS;
+const BASE_URL ="https://flowventapi.azurewebsites.net/api/Events";
 console.log("PRODUCTION BASE_URL:", BASE_URL);
 
 
