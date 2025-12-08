@@ -3,12 +3,10 @@ import { getEventsById } from "@/services/eventService";
 import EventDetailsClient from "../../../components/EventDetailsClient"; 
 import { Event } from "@/types/globalTypes";
 
-interface PageProps {
-    params: { id: string };
-  }
-export default async function EventDetailsPage({ params }: PageProps ) {
+
+export default async function EventDetailsPage({ params }: { params:Promise<{ id: string }> }) {
     
-    const{ id } = params;
+    const{ id } =await params;
     let event: Event | null =  await getEventsById(id);
     
     try {
