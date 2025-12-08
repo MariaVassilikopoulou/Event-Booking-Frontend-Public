@@ -11,7 +11,7 @@ interface AskAIButtonProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProps) {
+export default function AskAIButton({ setModalOpen }: AskAIButtonProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -89,7 +89,7 @@ export default function AskAIButton({ modalOpen, setModalOpen }: AskAIButtonProp
             <h2>Ask our AI Assistant</h2>
             <p>Get quick help about events, suggestions, or recommendations.</p>
 
-            {/* CHAT WINDOW */}
+          
             <div className={styles.chatWindow}>
 
             {messages.length === 0 && (
