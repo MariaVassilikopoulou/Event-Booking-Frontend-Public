@@ -2,7 +2,8 @@ import { Event } from "@/types/globalTypes";
 
 
 const BASE_URL =process.env.NEXT_PUBLIC_API_EVENTS;
- 
+console.log("PRODUCTION BASE_URL:", BASE_URL);
+
 
 export const getEvents= async(): Promise<Event[]>=>{
   if (!BASE_URL) {
