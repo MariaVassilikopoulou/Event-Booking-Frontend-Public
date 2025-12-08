@@ -9,35 +9,34 @@ import { Calendar, MapPin, Users } from "lucide-react";
 
 
 
-export default function EventDetailsPage({id}:{id:string}){
+export default function EventDetailsPage({id, initialEvent}:{id:string, initialEvent: Event}){
    
-    const [event, setEvent]= useState<Event| null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    
-
-
-    useEffect(() => {
-      const fetchEvent = async () => {
-        try {
-          const data = await getEventsById(id);
-          setEvent(data);
-        } catch (err) {
-          console.error(err);
-          setError("Failed to load event.");
-        } finally {
-          setLoading(false);
-        }
-      };
+  const [event, setEvent]= useState<Event>(initialEvent);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState<string | null>(null);
   
-      if (id) fetchEvent();
-    }, [id]);
 
-        
-    if (loading) return <p className={styles.loading}>Loading event details...</p>;
-    if (error || !event) return <p>{error || "Event not found"}</p>;
-  if (!event) return <p className={styles.loading}>Loading event details...</p>;
 
+  // useEffect(() => {
+  //   const fetchEvent = async () => {
+  //     try {
+  //       const data = await getEventsById(id);
+  //       setEvent(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //       setError("Failed to load event.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   if (id) fetchEvent();
+  // }, [id]);
+
+  // if (loading) return <p className={styles.loading}>Loading event details...</p>;
+  // if (error || !event) return <p>{error || "Event not found"}</p>;
+
+//if (!event) return <p className={styles.loading}>Loading event details...</p>;
   return (
     <div className={styles.detailsPage}>
     
