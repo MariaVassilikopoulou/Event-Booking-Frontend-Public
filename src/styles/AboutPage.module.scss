@@ -1,0 +1,43 @@
+.aboutPage {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+     font-family: 'Inter', sans-serif;
+  
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f97316; 
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #171717;
+    }
+  
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+  
+    ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  
+    a {
+      color: #f97316;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  

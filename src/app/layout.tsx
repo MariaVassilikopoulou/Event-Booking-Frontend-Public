@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import '../styles/globals.css';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useEffect } from 'react';
+import Footer from '../components/Footer';
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const loadFromStorage = useAuthStore((state) => state.loadFromStorage);
@@ -14,9 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   
   return (
     <html lang="en">
-      <body> <Header/>
-      {children}
-       
+        <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

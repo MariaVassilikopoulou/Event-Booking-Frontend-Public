@@ -37,11 +37,11 @@
 }
 
 .loginButton:hover, .logout:hover {
-  background-color: #ea580c; // hover accent
-  transform: translateY(-1px); // subtle lift effect
+  background-color: #ea580c; 
+  transform: translateY(-1px); 
 }
 
 .loginButton:focus, .logout:focus {
-  //outline: 2px solid #f97316;
+  
   outline-offset: 2px;
 }
