@@ -12,7 +12,18 @@ export interface CreateBookingDto{
     userName: string;
     userEmail: string;
     eventId: string;
+    eventName: string;
     seats: number;
+}
+
+export interface Booking {
+    id: string;
+    userId: string;
+    userName: string;
+    userEmail: string;
+    eventId: string;
+    seats: number;
+    bookingDate: string;
 }
 
 export interface AuthState {

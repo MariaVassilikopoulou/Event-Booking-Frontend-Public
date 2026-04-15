@@ -1,3 +1,15 @@
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton {
+  border-radius: 12px;
+  background: #e2e8f0;
+  height: 220px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
 .page-wrapper {
   display: flex;
   justify-content: center;
@@ -30,6 +42,23 @@
 }
 
 
+.loadMoreBtn {
+  background-color: #0b132b;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #1e2a4a;
+    transform: translateY(-1px);
+  }
+}
+
 .card {
     border: 1px solid #ddd;
     border-radius: 12px;
@@ -38,21 +67,80 @@
     background: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     transition: all 0.2s ease-in-out;
-  
+    position: relative;
+
     &:hover {
       transform: translateY(-2px);
     }
-  
+
     h2 {
       font-size: 1.4rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
-  
+
+    .location {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0.75rem;
+    }
+
+    .details {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
     .price {
       font-weight: bold;
       color: #222;
     }
-  
+
+    .lowSeats {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #fff7ed;
+      color: #f97316;
+      border: 1px solid #fed7aa;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-top: 0.5rem;
+    }
+
+    .soldOutOverlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.75);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+
+      span {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #dc2626;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+    }
+
+    .banner {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+      color: #92400e;
+      margin-top: 0.75rem;
+
+      a { color: #f97316; }
+    }
+
     .button {
       display: block;
       text-align: center;
@@ -62,18 +150,23 @@
       margin-top: 1rem;
       border-radius: 8px;
       text-decoration: none;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease;
-  
+
       &:hover {
-        background-color: #ea580c; 
+        background-color: #ea580c;
         transform: translateY(-1px);
       }
-    
+
       &:disabled {
-        background-color: #fbbf24; 
+        background-color: #fbbf24;
         cursor: not-allowed;
       }
-    
+
       &:focus {
         outline: 2px solid #ffffff;
         outline-offset: 2px;
@@ -81,11 +174,26 @@
     }
 
     .button.disabled {
-      background-color: #fbbf24; 
+      background-color: #fbbf24;
       cursor: not-allowed;
-      opacity: 0.6; 
-      pointer-events: none; 
+      opacity: 0.6;
+      pointer-events: none;
     }
-    
+
+    .soldOutBtn {
+      display: block;
+      text-align: center;
+      background: #e5e7eb;
+      color: #9ca3af;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: not-allowed;
+    }
+
   }
   

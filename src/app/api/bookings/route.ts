@@ -1,7 +1,26 @@
 import { NextResponse } from "next/server";
 
-const  backendUrl= process.env.NEXT_PUBLIC_API_BOOKINGS ?? "";
-export async function POST (request: Request){
+const backendUrl = process.env.NEXT_PUBLIC_API_BOOKINGS ?? "";
+
+export async function GET(request: Request) {
+    const token = request.headers.get("authorization");
+    try {
+        const res = await fetch(backendUrl, {
+            headers: { Authorization: token || "" },
+        });
+        if (!res.ok) {
+            const text = await res.text();
+            return NextResponse.json({ message: text }, { status: res.status });
+        }
+        const data = await res.json();
+        return NextResponse.json(data);
+    } catch (error) {
+        console.error("Bookings GET error", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+}
+
+export async function POST(request: Request){
     const body = await request.json();
 
     try{

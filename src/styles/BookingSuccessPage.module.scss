@@ -52,19 +52,55 @@
    
   }
   
-  .backLink {
+  .summary {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+
+    p {
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+  }
+
+  .bookingId {
+    font-size: 0.8rem;
+    color: #94a3b8 !important;
+    font-family: monospace;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .backLink, .bookingsLink {
     display: inline-block;
     font-weight: 600;
     text-decoration: none;
     padding: 0.8rem 1.8rem;
     border-radius: 8px;
-    background-color: #f97316;
-    color: #fff;
     transition: background 0.2s ease, transform 0.2s ease;
-    margin-top: 2rem; 
     &:hover {
-      background-color: #ea580c;
       transform: translateY(-2px);
     }
+  }
+
+  .backLink {
+    background-color: #f97316;
+    color: #fff;
+    &:hover { background-color: #ea580c; }
+  }
+
+  .bookingsLink {
+    background-color: #0b132b;
+    color: #fff;
+    &:hover { background-color: #1e2a4a; }
   }
   

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 const backendUrl= process.env.NEXT_PUBLIC_API_AI_ASSISTANT ?? "";
-console.log("Calling backend:", backendUrl);
 export async function POST(req:Request){
     try{
         if(!backendUrl){
