@@ -83,31 +83,6 @@
   
   }
 
-@media (prefers-color-scheme: dark) {
-  .form {
-    background: #1e293b;
-    border-color: #334155;
-    h3 { color: #f1f5f9; }
-    label { color: #cbd5e1; }
-    input {
-      background: #0f172a;
-      color: #f1f5f9;
-      border-color: #475569;
-    }
-    .total { color: #f1f5f9; }
-  }
-  .modal {
-    background: #1e293b;
-    h3 { color: #f1f5f9; }
-    p { color: #cbd5e1; }
-  }
-  .cancelBtn {
-    background: #334155;
-    color: #f1f5f9;
-    &:hover { background: #475569; }
-  }
-}
-
 .modalOverlay {
   position: fixed;
   inset: 0;

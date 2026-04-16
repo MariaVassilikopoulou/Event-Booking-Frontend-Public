@@ -173,42 +173,6 @@
       }
     }
 
-@media (prefers-color-scheme: dark) {
-  .skeleton { background: #334155; }
-
-  .page-wrapper { background: #0f172a; }
-
-  .container {
-    h1 { color: #f1f5f9; }
-    p { color: #94a3b8; }
-  }
-
-  .loadMoreBtn {
-    background-color: #334155;
-    &:hover { background-color: #475569; }
-  }
-
-  .card {
-    background: #1e293b;
-    border-color: #334155;
-    h2 { color: #f1f5f9; }
-    .location { color: #64748b; }
-    .details { color: #94a3b8; }
-    .price { color: #f1f5f9; }
-    .soldOutOverlay { background: rgba(15, 23, 42, 0.8); }
-    .banner {
-      background: #1c1207;
-      border-color: #92400e;
-      color: #fbbf24;
-      a { color: #fb923c; }
-    }
-    .soldOutBtn {
-      background: #1e293b;
-      color: #475569;
-    }
-  }
-}
-
     .button.disabled {
       background-color: #fbbf24;
       cursor: not-allowed;
