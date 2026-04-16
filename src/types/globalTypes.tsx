@@ -22,6 +22,7 @@ export interface Booking {
     userName: string;
     userEmail: string;
     eventId: string;
+    eventName: string;
     seats: number;
     bookingDate: string;
 }

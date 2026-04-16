@@ -72,7 +72,7 @@ export default function BookingsPage() {
                         {bookings.map(b => (
                             <div key={b.id} className={styles.bookingCard}>
                                 <span className={styles.badge}>{b.seats} {b.seats === 1 ? "seat" : "seats"}</span>
-                                <h2>Event ID: {b.eventId}</h2>
+                                <h2>{b.eventName || "Event booking"}</h2>
                                 <p><strong>Name:</strong> {b.userName}</p>
                                 <p><strong>Email:</strong> {b.userEmail}</p>
                                 <p><strong>Booked on:</strong> {new Date(b.bookingDate).toLocaleDateString("en-SE", { dateStyle: "medium" })}</p>
