@@ -103,4 +103,24 @@
     color: #fff;
     &:hover { background-color: #1e2a4a; }
   }
+
+@media (prefers-color-scheme: dark) {
+  .pageBackground { background-color: #0f172a; }
+  .wrapper {
+    background-color: #1e293b;
+    border-color: #334155;
+    h1 { color: #f1f5f9; }
+    h2 { color: #cbd5e1; }
+    p { color: #94a3b8; }
+  }
+  .warning {
+    background-color: #1c1207;
+    color: #fbbf24;
+  }
+  .summary {
+    background: #0f172a;
+    border-color: #334155;
+    p { color: #cbd5e1; }
+  }
+}
   

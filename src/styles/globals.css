@@ -93,6 +93,25 @@ body, button, input, a {
   html {
     color-scheme: dark;
   }
+
+  input, select, textarea {
+    background-color: #1e293b;
+    color: #f1f5f9;
+    border-color: #475569;
+  }
+
+  .footer {
+    background-color: #1e293b !important;
+    border-top-color: #334155 !important;
+  }
+  .footer .brand-section .tagline,
+  .footer .links-section a,
+  .footer .copyright {
+    color: #94a3b8 !important;
+  }
+  .footer .links-section a:hover {
+    color: #f97316 !important;
+  }
 }
 
 
