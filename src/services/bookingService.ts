@@ -6,12 +6,13 @@ const getAuthHeader = (): string => {
     return token ? `Bearer ${token}` : "";
 };
 
-export const createBooking = async (booking: CreateBookingDto): Promise<Booking> => {
+export const createBooking = async (booking: CreateBookingDto, token?: string): Promise<Booking> => {
+    const authHeader = token ? `Bearer ${token}` : getAuthHeader();
     const res = await fetch("/api/bookings", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: getAuthHeader(),
+            Authorization: authHeader,
         },
         body: JSON.stringify(booking),
     });
@@ -33,4 +34,12 @@ export const getMyBookings = async (): Promise<Booking[]> => {
         throw new Error(`Failed to load bookings: ${res.status} ${text}`);
     }
     return res.json();
+};
+
+export const cancelBooking = async (eventId: string, bookingId: string): Promise<void> => {
+    const res = await fetch(`/api/bookings/${eventId}/${bookingId}`, {
+        method: "DELETE",
+        headers: { Authorization: getAuthHeader() },
+    });
+    if (!res.ok) throw new Error("Failed to cancel booking");
 };

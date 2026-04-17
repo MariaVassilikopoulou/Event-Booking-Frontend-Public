@@ -9,12 +9,13 @@ export const useAuthStore = create<AuthState>()(
       userName: null,
       userEmail: null,
       token: null,
+      isAdmin: false,
 
-      login: (token, userName, email) =>
-        set({ isLoggedIn: true, userName, userEmail: email, token }),
+      login: (token, userName, email, isAdmin) =>
+        set({ isLoggedIn: true, userName, userEmail: email, token, isAdmin }),
 
       logout: () =>
-        set({ isLoggedIn: false, userName: null, userEmail: null, token: null }),
+        set({ isLoggedIn: false, userName: null, userEmail: null, token: null, isAdmin: false }),
 
       // no-op — persist middleware rehydrates automatically on mount
       loadFromStorage: () => {},

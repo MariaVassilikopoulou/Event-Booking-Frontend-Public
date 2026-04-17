@@ -25,6 +25,8 @@ export interface Booking {
     eventName: string;
     seats: number;
     bookingDate: string;
+    status?: string;          // "Pending" | "Paid" | "Cancelled"
+    stripeSessionId?: string;
 }
 
 export interface AuthState {
@@ -32,7 +34,8 @@ export interface AuthState {
     userName: string | null;
     userEmail: string | null;
     token: string | null;
-    login: (token: string, userName: string, email: string) => void;
+    isAdmin: boolean;
+    login: (token: string, userName: string, email: string, isAdmin: boolean) => void;
     logout: () => void;
     loadFromStorage: () => void;
 }

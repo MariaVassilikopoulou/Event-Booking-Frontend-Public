@@ -73,7 +73,7 @@ export default function AuthPage(){
         }
 
         const data = await res.json();
-        login(data.token, data.fullName, data.email);
+        login(data.token, data.fullName, data.email, data.isAdmin ?? false);
         toast.success(isLogin ? "Welcome back!" : "Account created!");
         window.location.href="/";
     }catch{

@@ -1,7 +1,14 @@
 import { Event } from "@/types/globalTypes";
 
-
 const BASE_URL = process.env.NEXT_PUBLIC_API_EVENTS;
+
+export interface CreateEventDto {
+    name: string;
+    date: string;
+    location: string;
+    price: number;
+    totalSeats: number;
+}
 
 
 export const getEvents= async(): Promise<Event[]>=>{
@@ -13,6 +20,34 @@ export const getEvents= async(): Promise<Event[]>=>{
     return res.json();
 }
 
+
+export const createEvent = async (dto: CreateEventDto, token: string): Promise<Event> => {
+    const res = await fetch(BASE_URL!, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(dto),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+};
+
+export const updateEvent = async (id: string, dto: CreateEventDto, token: string): Promise<Event> => {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(dto),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+};
+
+export const deleteEvent = async (id: string, token: string): Promise<void> => {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error(await res.text());
+};
 
 export const getEventsById = async (id: string): Promise<Event | null> => {
   try {

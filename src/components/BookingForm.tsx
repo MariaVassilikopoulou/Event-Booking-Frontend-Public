@@ -12,7 +12,7 @@ interface Props{
 }
 
 export default function BookingForm({event, onBookingSuccess}: Props){
-   const { userName: storedName, userEmail: storedEmail } = useAuthStore();
+   const { userName: storedName, userEmail: storedEmail, isLoggedIn, token } = useAuthStore();
    const [name, setName] = useState(storedName ?? "");
    const [email, setEmail] = useState(storedEmail ?? "");
    const [seats, setSeats] = useState(1);
@@ -42,10 +42,10 @@ export default function BookingForm({event, onBookingSuccess}: Props){
         eventId: event.id,
         eventName: event.name
       };
-      const result = await createBooking(bookingDto);
+      const result = await createBooking(bookingDto, token ?? undefined);
       onBookingSuccess?.();
       router.push(
-        `/booking-success?bookingId=${result?.id ?? ""}&eventName=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&seats=${seats}&total=${total}`
+        `/booking-success?bookingId=${result?.id ?? ""}&eventId=${event.id}&pricePerSeat=${event.price}&eventName=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&seats=${seats}&total=${total}`
       );
     } catch(error: unknown) {
       const raw = error instanceof Error ? error.message : "";
@@ -55,6 +55,18 @@ export default function BookingForm({event, onBookingSuccess}: Props){
       setLoading(false);
     }
    };
+
+   if (!isLoggedIn || !token) {
+    return (
+      <div className={styles.formwrapper}>
+        <div className={styles.form}>
+          <h3>Book Your Seats</h3>
+          <p>You need to be logged in to book this event.</p>
+          <button type="button" onClick={() => router.push("/auth")}>Log in / Register</button>
+        </div>
+      </div>
+    );
+   }
 
    return (
     <div className={styles.formwrapper}>

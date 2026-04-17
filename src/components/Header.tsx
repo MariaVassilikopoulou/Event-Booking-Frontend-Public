@@ -7,7 +7,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function Header(){
     const [menuOpen, setMenuOpen] = useState(false);
-    const { isLoggedIn, userName, logout } = useAuthStore();
+    const { isLoggedIn, userName, isAdmin, logout } = useAuthStore();
 
     return (
         <header className={styles.header}>
@@ -30,6 +30,7 @@ export default function Header(){
                 {isLoggedIn ? (
                     <>
                         <span className={styles.welcome}>Welcome, {userName}</span>
+                        {isAdmin && <Link href="/admin" className={styles.navLink}>Admin</Link>}
                         <Link href="/bookings" className={styles.navLink}>My Bookings</Link>
                         <button onClick={logout} className={styles.logout}>Logout</button>
                     </>
