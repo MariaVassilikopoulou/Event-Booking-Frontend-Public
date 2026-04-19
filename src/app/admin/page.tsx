@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { Event, Booking } from "@/types/globalTypes";
 import { getEvents, createEvent, updateEvent, deleteEvent, CreateEventDto } from "@/services/eventService";
+import { generateEventDescription } from "@/services/aiAssistantService";
 import styles from "../../styles/AdminPage.module.scss";
 import { toast } from "sonner";
 
 const BOOKINGS_URL = process.env.NEXT_PUBLIC_API_BOOKINGS;
 
-const emptyForm: CreateEventDto = { name: "", date: "", location: "", price: 0, totalSeats: 0 };
+const emptyForm: CreateEventDto = { name: "", description: "", date: "", location: "", price: 0, totalSeats: 0 };
 
 export default function AdminPage() {
     const { isLoggedIn, isAdmin, token } = useAuthStore();
@@ -25,6 +26,7 @@ export default function AdminPage() {
     const [form, setForm] = useState<CreateEventDto>(emptyForm);
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [generating, setGenerating] = useState(false);
 
     // Bookings state
     const [bookings, setBookings] = useState<Booking[]>([]);
@@ -74,12 +76,31 @@ export default function AdminPage() {
         setEditingId(ev.id);
         setForm({
             name: ev.name,
+            description: ev.description ?? "",
             date: ev.date.slice(0, 16),
             location: ev.location,
             price: ev.price,
             totalSeats: ev.totalSeats,
         });
         setShowForm(true);
+    };
+
+    const handleGenerateDescription = async () => {
+        if (!token || !form.name) return;
+        setGenerating(true);
+        try {
+            const description = await generateEventDescription({
+                eventName: form.name,
+                location: form.location || "TBD",
+                date: form.date || "TBD",
+                price: form.price ? `${form.price}` : "TBD",
+            }, token);
+            setForm(f => ({ ...f, description }));
+        } catch {
+            toast.error("Could not generate description. Please try again.");
+        } finally {
+            setGenerating(false);
+        }
     };
 
     const handleSave = async () => {
@@ -168,6 +189,26 @@ export default function AdminPage() {
                                         <label>Total Seats</label>
                                         <input type="number" min="1" value={form.totalSeats} onChange={e => setForm(f => ({ ...f, totalSeats: Number(e.target.value) }))} />
                                     </div>
+                                </div>
+                                <div className={styles.field} style={{ marginTop: "1rem" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                                        <label style={{ margin: 0 }}>Description</label>
+                                        <button
+                                            type="button"
+                                            className={styles.generateBtn}
+                                            onClick={handleGenerateDescription}
+                                            disabled={generating || !form.name}
+                                            title={!form.name ? "Enter an event name first" : ""}
+                                        >
+                                            {generating ? "Generating…" : "✨ Generate with AI"}
+                                        </button>
+                                    </div>
+                                    <textarea
+                                        rows={3}
+                                        placeholder="A short description of the event (optional)..."
+                                        value={form.description ?? ""}
+                                        onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+                                    />
                                 </div>
                                 <div className={styles.formActions}>
                                     <button className={styles.saveBtn} onClick={handleSave} disabled={saving}>

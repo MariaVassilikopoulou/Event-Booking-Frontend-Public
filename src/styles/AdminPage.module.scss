@@ -84,7 +84,7 @@
     letter-spacing: 0.04em;
   }
 
-  input {
+  input, textarea {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 0.45rem 0.75rem;
@@ -92,6 +92,8 @@
     color: #0b132b;
     outline: none;
     transition: border-color 0.15s;
+    font-family: inherit;
+    resize: vertical;
 
     &:focus { border-color: #0b132b; }
   }
@@ -115,6 +117,20 @@
   cursor: pointer;
   transition: background 0.2s;
   &:hover { background: #1e2d5a; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.generateBtn {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  &:hover:not(:disabled) { background: #dbeafe; }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 

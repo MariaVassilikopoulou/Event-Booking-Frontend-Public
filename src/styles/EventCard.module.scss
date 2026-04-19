@@ -42,6 +42,108 @@
 }
 
 
+.searchBar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #2563eb;
+  }
+}
+
+.searchBtn {
+  background: #0b132b;
+  color: #fff;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) {
+    background: #1e2a4a;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.clearBtn {
+  background: transparent;
+  color: #6b7280;
+  border: 1.5px solid #d1d5db;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover {
+    border-color: #9ca3af;
+    color: #374151;
+  }
+}
+
+.searchResultsSection {
+  margin-bottom: 2.5rem;
+}
+
+.searchResultsLabel {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+  text-align: left !important;
+}
+
+.recommendedSection {
+  margin-bottom: 2.5rem;
+}
+
+.recommendedTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: left;
+  color: #0b132b;
+}
+
+.recommendedScroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+}
+
+.recommendedCard {
+  flex: 0 0 300px;
+}
+
 .loadMoreBtn {
   background-color: #0b132b;
   color: #fff;

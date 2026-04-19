@@ -15,10 +15,14 @@ export async function POST(req:Request){
         }
 
         const body= await req.json();
+        const authHeader = req.headers.get("authorization");
 
         const response= await fetch(backendUrl, {
             method:"POST",
-            headers:{"Content-Type": "application/json"},
+            headers:{
+                "Content-Type": "application/json",
+                ...(authHeader ? { "Authorization": authHeader } : {}),
+            },
             body:JSON.stringify(body),
         });
         

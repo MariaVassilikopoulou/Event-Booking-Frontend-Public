@@ -1,6 +1,7 @@
 export  interface Event{
     id: string;
     name: string;
+    description?: string;
     date: string;
     location: string;
     price: number;
@@ -49,10 +50,20 @@ export type NormalizedEvent = {
   seatsAvailable: number;
 };
 
+export type PendingBooking = {
+  eventId: string;
+  eventName: string;
+  seats: number;
+  price: number;
+  eventDate: string;
+};
+
 export type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   recommendedEvents?: NormalizedEvent[];
+  suggestions?: string[];
+  pendingBooking?: PendingBooking;
 };
 
 export type BackendEvent = {
