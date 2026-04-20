@@ -1,39 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #f97316; 
-  --secondary: #111827; 
-  --accent: #2563eb; 
-  --border: #e4e4e4;
+  --background: #f5efe6;
+  --background-strong: #efe6da;
+  --surface: rgba(255, 252, 247, 0.88);
+  --surface-strong: #fffaf2;
+  --surface-dark: #0e1b32;
+  --surface-dark-soft: #16274a;
+  --foreground: #172033;
+  --text-muted: #5f6778;
+  --text-soft: #7b8290;
+  --brand-ink: #0f1f3d;
+  --brand-ink-2: #1d3562;
+  --brand-warm: #f1793d;
+  --brand-warm-strong: #d95b1f;
+  --brand-cream: #fff4e4;
+  --brand-line: rgba(23, 32, 51, 0.1);
+  --brand-line-strong: rgba(23, 32, 51, 0.18);
+  --accent-blue: #6d91f7;
+  --success: #1e8b55;
+  --warning: #b96a18;
+  --danger: #d2514e;
+  --shadow-soft: 0 18px 48px rgba(15, 31, 61, 0.08);
+  --shadow-card: 0 22px 60px rgba(15, 31, 61, 0.12);
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+  --site-width: 1180px;
 }
-
-/* Site is light-mode only — dark OS preference is intentionally ignored */
-
 
 html,
 body {
   max-width: 100vw;
+  min-height: 100%;
   overflow-x: hidden;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--foreground);
-  background-color: var(--background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100%;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
   display: flex;
   flex-direction: column;
+  background:
+    radial-gradient(circle at top left, rgba(255, 214, 177, 0.46), transparent 28%),
+    radial-gradient(circle at top right, rgba(109, 145, 247, 0.12), transparent 24%),
+    linear-gradient(180deg, #f8f3eb 0%, #f3ebdf 38%, #f6f0e8 100%);
+  color: var(--foreground);
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-main {
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.55;
+}
+
+body::before {
+  top: -6rem;
+  left: -8rem;
+  width: 22rem;
+  height: 22rem;
+  background: rgba(241, 121, 61, 0.24);
+}
+
+body::after {
+  right: -7rem;
+  top: 10rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(109, 145, 247, 0.16);
+}
+
+.siteMain {
   flex: 1;
+  position: relative;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 a {
@@ -41,134 +103,65 @@ a {
   text-decoration: none;
 }
 
-
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.3;
+img,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
-h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.3;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--brand-ink);
+  line-height: 1.08;
 }
 
-p, label, input, button {
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
+h1,
+h2,
+.displayFont {
+  font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+  letter-spacing: -0.03em;
 }
 
-
-button:focus,
-input:focus,
-a:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+p {
+  margin: 0;
 }
 
-
-body, button, input, a {
-  transition: background 0.2s ease, color 0.2s ease;
+button {
+  border: 0;
 }
 
-
-/* Force light color scheme regardless of OS preference */
-html {
-  color-scheme: light;
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 3px;
 }
 
-
-.footer {
-  background-color: #ffffff; 
-  color:#0b132b;
-  padding: 0.5rem;
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0px 0px 2px rgba(0,0,0,0.05);
- border-top: 1px solid #e5e7eb; 
- 
+::selection {
+  background: rgba(241, 121, 61, 0.24);
+  color: var(--brand-ink);
 }
 
-.footer .footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
+.shellContainer {
+  width: min(var(--site-width), calc(100% - 2rem));
   margin: 0 auto;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-}
-.footer .brand-section,
-.footer .links-section,
-.footer .social-section {
-  flex: 1;
-}
-.footer .brand-section .brand-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f97316;
-}
-
-.footer .brand-section .tagline {
-  font-size: 0.9rem;
-  color:#0b132b;
-  margin-top: 0.3rem;
-}
-
-.footer .links-section {
-  display: flex;
-  justify-content: center; 
-  gap: 1.5rem;
-}
-
-
-.footer .links-section a {
-  color:#0b132b;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.footer .links-section  a:hover {
-  color: #f97316;
-}
-
-.footer .social-section a {
-  font-size: 1.5rem;
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.footer .social-section a:hover {
-  transform: scale(1.2);
-}
-
-.footer .copyright {
-  text-align: center;
- 
-  font-size: 0.85rem;
-  color: #888888;
- 
-  
 }
 
 @media (max-width: 768px) {
-  .footer .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-  }
-
-  .footer .links-section {
-    gap: 1rem;
+  .shellContainer {
+    width: min(var(--site-width), calc(100% - 1.25rem));
   }
 }

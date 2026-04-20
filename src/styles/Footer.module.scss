@@ -1,0 +1,159 @@
+.footer {
+  margin-top: 0;
+  padding: 4.5rem 2rem 2.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(241, 121, 61, 0.1), transparent 28%),
+    linear-gradient(155deg, #08111e, #111f3a);
+  color: rgba(255, 247, 237, 0.88);
+}
+
+.inner {
+  max-width: var(--site-width);
+  margin: 0 auto;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brandBlock {
+  max-width: 36rem;
+
+  h2 {
+    margin-top: 0.55rem;
+    color: #fff5e8;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+  }
+
+  p {
+    margin-top: 1rem;
+    max-width: 32rem;
+    color: rgba(255, 247, 237, 0.72);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffd8ba;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f7a05f, var(--brand-warm));
+  color: #fff8f1;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 16px 24px rgba(241, 121, 61, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 28px rgba(241, 121, 61, 0.28);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  h3 {
+    color: #fff5e8;
+    font-size: 0.88rem;
+    font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  a {
+    color: rgba(255, 247, 237, 0.72);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+
+    &:hover { color: #fff; }
+  }
+}
+
+.stackItem {
+  color: rgba(255, 247, 237, 0.48);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 247, 237, 0.72);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+
+  &:hover { color: #fff; }
+
+  svg { color: #f7b07c; flex-shrink: 0; }
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 247, 237, 0.4);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 960px) {
+  .topRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .footer { padding: 3.5rem 1.25rem 2rem; }
+
+  .grid { grid-template-columns: 1fr; }
+
+  .cta {
+    width: 100%;
+    justify-content: center;
+  }
+}

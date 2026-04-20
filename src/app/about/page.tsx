@@ -1,58 +1,63 @@
 "use client";
 
 import Link from "next/link";
-import styles from "../../styles/AboutPage.module.scss"
+import styles from "../../styles/AboutPage.module.scss";
+
+const techStack = [
+  "Frontend: React, Next.js, TypeScript, SCSS",
+  "Backend: .NET 8, C#, Azure Functions",
+  "Database and cloud: Azure Cosmos DB, SQL, Azure Service Bus",
+  "CI/CD and DevOps: GitHub, Azure DevOps",
+  "Security: JWT authentication and cloud-first best practices",
+  "AI integration: Azure OpenAI-powered event search",
+];
 
 export default function AboutPage() {
   return (
-    <div className={styles.aboutPage}>
-  <h1>About Flowvent</h1>
-  
-  <p>
-    Flowvent is a modern event booking platform designed to simplify how users discover, 
-    and book event tickets. It is built with a focus on <strong>scalability, security, 
-    and maintainability</strong>, leveraging cloud technologies and best practices.
-  </p>
+    <div className={styles.page}>
+      <section className={styles.hero}>
+        <span className={styles.eyebrow}>About Flowvent</span>
+        <h1>Simple event search and booking.</h1>
+        <p>Find events and book online.</p>
+      </section>
 
-  <h2>Our Mission</h2>
-  <p>
-    We aim to create a seamless experience for event-goers and soon UI for organizers. 
-    Users can browse events, reserve seats, and receive instant booking request confirmation, 
-    while event organizers gain insights into bookings and monitor audience participation.</p>
+      <section className={styles.grid}>
+        <article className={styles.card}>
+          <h2>Our mission</h2>
+          <p>Make event booking simple.</p>
+        </article>
 
-  <h2>Tech Stack & Skills Showcased</h2>
-  <ul>
-    <li>Frontend: React, Next.js, TypeScript, SCSS</li>
-    <li>Backend: .NET 8, C#, Azure Functions</li>
-    <li>Database & Cloud: Azure Cosmos DB, SQL, Azure Service Bus</li>
-    <li>CI/CD & DevOps: GitHub, Azure DevOps</li>
-    <li>Security: JWT Authentication, best practices for cloud security</li>
-    <li>AI Integration: Intelligent event assistant powered by Azure OpenAI for personalized recommendations</li>
-  </ul>
+        <article className={styles.card}>
+          <h2>AI assistant</h2>
+          <p>Ask about dates, places, or prices.</p>
+          <p className={styles.example}>
+            Try: “What&apos;s happening in Gothenburg next month?”
+          </p>
+        </article>
+      </section>
 
-  <h2>Meet the Flowvent AI Agent</h2>
-  <p>
-    Flowvent features an AI-powered event assistant that helps you find the perfect events 
-    based on your preferences. Ask it about locations, dates, ticket prices, or even 
-    family-friendly activities, and it will provide helpful guidance while our platform 
-    displays the event cards for easy booking.
-  </p>
-  <p>
-    For example, you can ask: <em>&quot;What events are happening in Gothenburg next month?&quot;</em> 
-    or <em>&quot;Show me the most affordable workshops.&quot;</em> The AI agent will guide you and 
-    highlight the best matches instantly.
-  </p>
+      <section className={styles.stackSection}>
+        <div className={styles.sectionIntro}>
+          <span className={styles.eyebrow}>Tech stack</span>
+          <h2>Built with modern tools.</h2>
+        </div>
 
-  <h2>Why Flowvent?</h2>
-  <p>
-  This platform showcases my skills as a <strong>Microsoft Certified Azure Developer (AZ-204)</strong>, demonstrating serverless cloud services, full-stack development, and practical use of Azure solutions.
-  </p>
+        <div className={styles.stackGrid}>
+          {techStack.map((item) => (
+            <div key={item} className={styles.stackCard}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </section>
 
-  <p>
-    Learn more about our <Link href="/events">upcoming events</Link> and start booking today! 
-    Chat with our AI agent to find the events that suit you best.
-  </p>
-</div>
-
+      <section className={styles.cta}>
+        <div>
+          <span className={styles.eyebrow}>Start exploring</span>
+          <h2>See what&apos;s live on Flowvent right now.</h2>
+        </div>
+        <Link href="/events">Browse upcoming events</Link>
+      </section>
+    </div>
   );
 }

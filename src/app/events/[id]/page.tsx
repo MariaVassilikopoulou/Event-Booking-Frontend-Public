@@ -13,22 +13,14 @@ interface Params {
     let event: Event | null =  null;
     
     try {
-       
         event = await getEventsById(id);
-        
-       console.log("Fetched event:", event);
-      
     } catch (error) {
         console.error(`Failed to fetch event ${id}:`, error);
-       
-       
     }
 
-   
     if (!event) {
         return notFound();
     }
     
-    
-    return <EventDetailsClient  id={id} initialEvent={event} />;
+    return <EventDetailsClient initialEvent={event} />;
 }

@@ -42,7 +42,7 @@ export default function AdminPage() {
             .then(setEvents)
             .catch(() => toast.error("Failed to load events."))
             .finally(() => setEventsLoading(false));
-    }, [isLoggedIn, isAdmin]);
+    }, [isLoggedIn, isAdmin, router]);
 
     const loadBookings = async () => {
         if (bookingsLoaded) return;
